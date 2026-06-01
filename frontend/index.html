@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>AI Product Strategy Assistant</title>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="styles/App.css" />
+  <link rel="stylesheet" href="styles/ChatBox.css" />
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" src="components/ChatBox.jsx"></script>
+  <script type="text/babel">
+    const API = "http://localhost:8001";
+
+    function App() {
+      const [messages, setMessages] = React.useState([]);
+      const [loading,  setLoading]  = React.useState(false);
+
+      const samples = [
+        "Analyze overall product performance",
+        "Which products need improvement?",
+        "Show me the SWOT analysis",
+        "What are the top strategic recommendations?",
+        "Which region has the highest revenue?",
+        "Generate executive report",
+      ];
+
+      async function handleSend(userMessage) {
+        setMessages(prev => [...prev, { role: "user", text: userMessage }]);
+        setLoading(true);
+        try {
+          const controller = new AbortController();
+          const timeout    = setTimeout(() => controller.abort(), 120000);
+          const res = await fetch(`${API}/chat`, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ message: userMessage }),
+            signal: controller.signal,
+          });
+          clearTimeout(timeout);
+          if (!res.ok) throw new Error(`Server error ${res.status}`);
+          const data = await res.json();
+          setMessages(prev => [...prev, { role: "agent", text: data.reply }]);
+        } catch (err) {
+          const msg = err.name === "AbortError"
+            ? "Request timed out — please try again."
+            : `Error: ${err.message}`;
+          setMessages(prev => [...prev, { role: "agent", text: msg }]);
+        } finally {
+          setLoading(false);
+        }
+      }
+
+      return (
+        <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
+          <div className="app-header">
+            <div>🎯 AI Product <span>Strategy</span> Assistant</div>
+            <span className="header-badge">5 Agents Active</span>
+          </div>
+          <div style={{ flex: 1, display: "flex", background: "#1e293b", overflow: "hidden" }}>
+
+            {/* Left panel — Chat + Sample prompts */}
+            <div style={{ width: "380px", display: "flex", flexDirection: "column", padding: "16px", gap: "12px", borderRight: "1px solid #334155" }}>
+              <ChatBox messages={messages} onSend={handleSend} loading={loading} />
+              <div className="section-title">Sample Prompts</div>
+              <div className="sample-prompts">
+                {samples.map((s, i) => (
+                  <button key={i} className="sample-btn" onClick={() => handleSend(s)}>{s}</button>
+                ))}
+              </div>
+            </div>
+
+            {/* Right panel — AI Response */}
+            <div style={{ flex: 1, padding: "24px", overflowY: "auto" }}>
+              {messages.filter(m => m.role === "agent").length === 0 ? (
+                <div style={{ textAlign: "center", color: "#64748b", marginTop: "80px", lineHeight: "2.4", fontSize: "14px" }}>
+                  <div style={{ fontSize: "40px", marginBottom: "12px" }}>🎯</div>
+                  Ask a question to generate AI-powered insights<br/>
+                  <span style={{ color: "#475569" }}>
+                    📊 Sales Analysis &nbsp;|&nbsp; 💬 Customer Feedback<br/>
+                    🔍 SWOT Analysis &nbsp;|&nbsp; 🧠 Strategic Recommendations<br/>
+                    📋 Executive Report
+                  </span>
+                </div>
+              ) : (
+                <div style={{
+                  background: "#0f172a", borderRadius: "10px", padding: "24px",
+                  fontSize: "14px", lineHeight: "1.9", color: "#cbd5e1",
+                  whiteSpace: "pre-wrap", border: "1px solid #334155"
+                }}>
+                  {messages.filter(m => m.role === "agent").slice(-1)[0]?.text}
+                </div>
+              )}
+            </div>
+
+          </div>
+        </div>
+      );
+    }
+
+    ReactDOM.createRoot(document.getElementById("root")).render(<App />);
+  </script>
+</body>
+</html>

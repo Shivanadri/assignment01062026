@@ -1,0 +1,56 @@
+/* Cards.css — all result card styles */
+.card { background: #fff; border-radius: 10px; padding: 14px 16px; box-shadow: 0 1px 4px rgba(0,0,0,0.08); }
+.card h3 { font-size: 13px; font-weight: 700; color: #1e293b; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.card-icon { font-size: 16px; }
+
+/* Sales card */
+.kpi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 10px; }
+.kpi-box { background: #f8fafc; border-radius: 6px; padding: 8px 10px; }
+.kpi-label { font-size: 10px; color: #94a3b8; text-transform: uppercase; }
+.kpi-value { font-size: 16px; font-weight: 800; color: #1e293b; margin-top: 2px; }
+.kpi-value.green { color: #22c55e; }
+.kpi-value.blue  { color: #6366f1; }
+
+.table-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid #f1f5f9; font-size: 12px; }
+.table-row:last-child { border-bottom: none; }
+.table-label { color: #475569; }
+.table-value { color: #1e293b; font-weight: 600; }
+
+/* SWOT card */
+.swot-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.swot-box { border-radius: 6px; padding: 8px 10px; }
+.swot-box.s { background: #f0fdf4; border-left: 3px solid #22c55e; }
+.swot-box.w { background: #fef2f2; border-left: 3px solid #ef4444; }
+.swot-box.o { background: #eff6ff; border-left: 3px solid #6366f1; }
+.swot-box.t { background: #fefce8; border-left: 3px solid #eab308; }
+.swot-title { font-size: 10px; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+.swot-box.s .swot-title { color: #22c55e; }
+.swot-box.w .swot-title { color: #ef4444; }
+.swot-box.o .swot-title { color: #6366f1; }
+.swot-box.t .swot-title { color: #eab308; }
+.swot-item { font-size: 11px; color: #475569; margin-bottom: 3px; padding-left: 8px; line-height: 1.4; }
+
+/* Feature priority card */
+.priority-item { display: flex; align-items: center; gap: 8px; padding: 6px 0; border-bottom: 1px solid #f1f5f9; font-size: 12px; }
+.priority-item:last-child { border-bottom: none; }
+.priority-rank { font-size: 10px; font-weight: 700; color: #94a3b8; width: 20px; }
+.priority-name { flex: 1; color: #1e293b; font-weight: 600; }
+.priority-score { font-size: 11px; color: #6366f1; font-weight: 700; }
+.action-badge { font-size: 9px; font-weight: 700; padding: 2px 6px; border-radius: 99px; }
+.action-badge.invest   { background: #f0fdf4; color: #22c55e; }
+.action-badge.improve  { background: #fef2f2; color: #ef4444; }
+.action-badge.maintain { background: #eff6ff; color: #6366f1; }
+
+/* Strategy card */
+.strategy-section { margin-bottom: 10px; }
+.strategy-label { font-size: 10px; font-weight: 700; text-transform: uppercase; color: #94a3b8; margin-bottom: 4px; }
+.strategy-item { display: flex; gap: 6px; font-size: 12px; color: #334155; margin-bottom: 4px; line-height: 1.5; }
+.strategy-dot { width: 6px; height: 6px; border-radius: 50%; background: #6366f1; margin-top: 5px; flex-shrink: 0; }
+
+/* Feedback card */
+.feedback-stats { display: flex; gap: 10px; margin-bottom: 10px; }
+.feedback-stat  { flex: 1; background: #f8fafc; border-radius: 6px; padding: 8px; text-align: center; }
+.feedback-stat .label { font-size: 10px; color: #94a3b8; }
+.feedback-stat .val   { font-size: 18px; font-weight: 800; color: #1e293b; }
+.feedback-stat .val.green { color: #22c55e; }
+.feedback-stat .val.red   { color: #ef4444; }

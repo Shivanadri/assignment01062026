@@ -1,0 +1,34 @@
+/* App.css */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: 'Segoe UI', Arial, sans-serif; background: #f1f5f9; height: 100vh; overflow: hidden; }
+
+.app-header {
+  background: #1e293b; color: #f8fafc;
+  padding: 0 24px; height: 52px;
+  display: flex; align-items: center; justify-content: space-between;
+  font-size: 18px; font-weight: 700;
+}
+.app-header span { color: #6366f1; }
+.header-badge { background: #6366f1; color: #fff; font-size: 10px; font-weight: 700; padding: 3px 10px; border-radius: 99px; }
+
+.app-body { display: flex; height: calc(100vh - 52px); }
+
+.left-panel {
+  width: 340px; min-width: 300px; background: #1e293b;
+  display: flex; flex-direction: column; padding: 16px; gap: 12px; overflow-y: auto;
+}
+
+.right-panel {
+  flex: 1; background: #f1f5f9; padding: 16px;
+  overflow-y: auto; display: flex; flex-direction: column; gap: 14px;
+}
+
+.section-title {
+  color: #94a3b8; font-size: 11px; font-weight: 700;
+  text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px;
+}
+
+.empty-state {
+  color: #94a3b8; font-size: 14px;
+  margin-top: 40px; text-align: center; line-height: 2;
+}

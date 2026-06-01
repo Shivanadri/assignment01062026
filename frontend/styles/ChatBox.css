@@ -1,0 +1,25 @@
+/* ChatBox.css */
+.chat-messages {
+  flex: 1; overflow-y: auto; display: flex;
+  flex-direction: column; gap: 8px; min-height: 200px; max-height: 400px;
+}
+.chat-bubble { padding: 8px 12px; border-radius: 8px; font-size: 13px; line-height: 1.5; max-width: 95%; word-break: break-word; }
+.chat-bubble.user  { background: #6366f1; color: #fff; align-self: flex-end; }
+.chat-bubble.agent { background: #334155; color: #cbd5e1; align-self: flex-start; }
+
+.chat-input-row { display: flex; gap: 6px; margin-top: 8px; }
+.chat-input { flex: 1; padding: 8px 10px; font-size: 13px; background: #334155; color: #f8fafc; border: 1px solid #475569; border-radius: 6px; outline: none; }
+.chat-input::placeholder { color: #64748b; }
+.chat-input:focus { border-color: #6366f1; }
+.chat-send-btn { padding: 8px 14px; background: #6366f1; color: #fff; border: none; border-radius: 6px; font-size: 13px; cursor: pointer; font-weight: 600; }
+.chat-send-btn:hover { background: #4f46e5; }
+.chat-send-btn:disabled { background: #475569; cursor: not-allowed; }
+
+.progress-box { display: flex; align-items: center; gap: 8px; padding: 4px 2px; }
+.progress-current { font-size: 11px; color: #ffffff; }
+.spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid #ffffff33; border-top-color: #ffffff; border-radius: 50%; animation: spin 0.7s linear infinite; flex-shrink: 0; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.sample-prompts { display: flex; flex-direction: column; gap: 4px; }
+.sample-btn { background: #334155; color: #94a3b8; border: 1px solid #475569; border-radius: 6px; padding: 5px 8px; font-size: 11px; cursor: pointer; text-align: left; }
+.sample-btn:hover { background: #475569; color: #fff; }
