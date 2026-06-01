@@ -20,20 +20,29 @@ _agents = {}
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    print("Loading sales data and initializing agents...")
-    rows = load_sales_data(DATA_PATH)
-    data_agent     = DataAgent(rows)
-    feedback_agent = FeedbackAgent(rows)
-    swot_agent     = SWOTAgent(data_agent, feedback_agent)
-    strategy_agent = StrategyAgent(data_agent, feedback_agent, swot_agent)
-    report_agent   = ReportAgent(data_agent, feedback_agent, swot_agent, strategy_agent)
+    api_key = os.getenv("OPENROUTER_API_KEY", "")
+    if not api_key:
+        print("WARNING: OPENROUTER_API_KEY not set. Set it in Render Environment Variables.")
+    else:
+        print("API key loaded successfully.")
 
-    _agents["data"]     = data_agent
-    _agents["feedback"] = feedback_agent
-    _agents["swot"]     = swot_agent
-    _agents["strategy"] = strategy_agent
-    _agents["report"]   = report_agent
-    print(f"Loaded {len(rows)} sales records. All 5 agents ready.")
+    print("Loading sales data and initializing agents...")
+    try:
+        rows           = load_sales_data(DATA_PATH)
+        data_agent     = DataAgent(rows)
+        feedback_agent = FeedbackAgent(rows)
+        swot_agent     = SWOTAgent(data_agent, feedback_agent)
+        strategy_agent = StrategyAgent(data_agent, feedback_agent, swot_agent)
+        report_agent   = ReportAgent(data_agent, feedback_agent, swot_agent, strategy_agent)
+
+        _agents["data"]     = data_agent
+        _agents["feedback"] = feedback_agent
+        _agents["swot"]     = swot_agent
+        _agents["strategy"] = strategy_agent
+        _agents["report"]   = report_agent
+        print(f"Loaded {len(rows)} sales records. All 5 agents ready.")
+    except Exception as e:
+        print(f"Agent init error: {e}")
     yield
 
 
